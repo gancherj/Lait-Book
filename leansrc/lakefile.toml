@@ -1,0 +1,15 @@
+name = "leansrc"
+version = "0.1.0"
+defaultTargets = ["leansrc"]
+
+[[require]]
+name = "lait"
+git = "https://github.com/gancherj/Lait"
+rev = "main"
+
+[[lean_lib]]
+name = "Leansrc"
+
+[[lean_exe]]
+name = "leansrc"
+root = "Main"

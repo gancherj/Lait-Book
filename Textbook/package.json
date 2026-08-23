@@ -1,0 +1,11 @@
+{
+  "name": "lait-textbook",
+  "private": true,
+  "scripts": {
+    "build": "mdbook build",
+    "serve": "mdbook serve"
+  },
+  "devDependencies": {
+    "@leandown/mdbook": "^0.0.19"
+  }
+}
