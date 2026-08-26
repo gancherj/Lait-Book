@@ -12,9 +12,9 @@ coming from the LSP.
 
 ## Prerequisites
 
-- `mdbook`, `npm`, and a Lean toolchain (`lake`) on `PATH`.
-- `npm install` — pulls `@leandown/mdbook` from the registry. It ships the
-  preprocessor (`node_modules/.bin/mdbook-leandown`) along with the browser
+- `mdbook`
+- `npm`, and a Lean toolchain (`lake`) on `PATH`.
+- `npm install` — pulls `@leandown/mdbook` from the registry. It ships the preprocessor (`node_modules/.bin/mdbook-leandown`) along with the browser
   runtime and stylesheet in `dist/`, which `book.toml` references directly, so
   there is nothing to generate or copy.
 

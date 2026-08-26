@@ -2,6 +2,8 @@
 title = "Lait Book"
 authors = ["gancherj"]
 language = "en"
+description = "The Lait textbook."
+text-direction = "ltr"
 
 # Runs every ```lean block through the Lean language server for highlighting,
 # hovers and diagnostics.
@@ -20,5 +22,5 @@ additional-js = ["./node_modules/@leandown/mdbook/dist/index.js"]
 # leandown's own stylesheet so equal-specificity rules win.
 additional-css = [
   "./node_modules/@leandown/mdbook/dist/leandown.css",
-  "./leandown-overrides.css",
+  "./leandown-overrides.css"
 ]
