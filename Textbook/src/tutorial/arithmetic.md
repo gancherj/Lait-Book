@@ -11,8 +11,8 @@ First, let's see how to use `#eval` to evaluate an expression:
 ```lean
 #eval 1 + 2 -- Evalutes to 3
 #eval 1 * 2 -- Evaluates to 2
-#eval 1 - 2 -- Evalautes to -1
-#eval 1 - (2 - 2) -- Evalautes to 0
+#eval 1 - 2 -- Evaluates to -1
+#eval 1 - (2 - 2) -- Evaluates to 0
 ```
 
 By hovering over the above expressions (e.g., `1 * 2`), we can see that they all have type `Int`, which stands for integers.
