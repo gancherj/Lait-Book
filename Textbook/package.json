@@ -6,6 +6,6 @@
     "serve": "mdbook serve"
   },
   "devDependencies": {
-    "@leandown/mdbook": "^0.0.19"
+    "@leandown/mdbook": "^0.0.20"
   }
 }

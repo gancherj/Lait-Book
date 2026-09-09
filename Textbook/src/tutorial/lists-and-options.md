@@ -9,16 +9,14 @@ So far, we have only seen basic data types, such as `Int` and `Bool`, function t
 We will now move on more complex data types. 
 
 ## Lists
-For any type `t`,  `List<t>` is the type of lists of values of type `t`.
-
-### Creating Lists
-To create a list, we have the value `Nil`, which has type `List<t>` for any type `t`, and the function `Cons`, which has type `∀ a. (a -> (List<a> -> List<a>))`; that is, it takes in a value of type `a` and a list of type `List<a>` and returns a list of type `List<a>`.
+For any type `T`,  `List<T>` is the type of lists of values of type `T`.
+To create a list, we have the value `Nil`, which has type `List<T>` for any type `T`; and the function `Cons`, which has type `(a -> (List<a> -> List<a>))`; that is, it takes in a value of type `a` and a list of type `List<a>` and returns a list of type `List<a>`.
 
 ```lean
-#eval Cons 1 (Cons 2 (Cons 3 Nil)) -- Cons(1, Cons(2, Cons(3, Nil()))) 
+#check Nil
+#check Cons
+#eval Cons 1 (Cons 2 (Cons 3 Nil)) 
 ```
-
-(Note above that the empty list, when evaluated, is written as `Nil()`, not `Nil`. This is because `Nil` is a _constructor_ for a _data type_, which we will discuss in more detail later.)
 
 
 ### Using Lists
@@ -31,7 +29,7 @@ def sumList (xs : List<Int>) : Int  :=
   | Cons h t => h + sumList t
   end
 
-#eval sumList [1, 2, 3] -- 6
+#eval sumList [1, 2, 3]
 ```
 Every patern match must begin with `match e with`, where `e` is an expression; and must end with `end`.
 For lists, pattern matching must analyze two cases: the `Nil` case, and the `Cons` case.
@@ -49,69 +47,69 @@ Since lists are so common, we also have abbreviations.
 First, `Nil` and `Cons` are synonymous with `[]` and `::`.
 This can be used both for creating lists and pattern matching on lists.
 ```lean
-#eval 1 :: 2 :: 3 :: [] -- Cons(1, Cons(2, Cons(3, Nil())))
+#eval 1 :: 2 :: 3 :: [] 
 
-def sumList xs := 
+def sumList2 xs := 
   match xs with
   | [] => 0
-  | h :: t => h + sumList t
+  | h :: t => h + sumList2 t
   end
 ```
 
 
 In addition, when making a particular list, we can use the syntax `[e1, e2, ..., en]`, where `e1`, `e2`, ..., `en` are expressions of type `t`:
 ```lean
-#eval [1, 2, 3] -- Cons(1, Cons(2, Cons(3, Nil())))
+#eval [1, 2, 3] 
 ```
-Here, `[1, 2, 3]` is exactly equivalent to `1 :: 2 :: 3 :: []`, which is in turn exactly equivalent to `Cons(1, Cons(2, Cons(3, Nil())))`.
+Here, `[1, 2, 3]` is exactly equivalent to `1 :: 2 :: 3 :: []`, which is in turn exactly equivalent to `Cons(1, Cons(2, Cons(3, Nil)))`.
 
 ### Common List Operations
 
 Lait has a number of list operations built in to its standard library.
+We give a few examples here; more can be seen in the [standard library reference](../stdlib.md).
 
-`List.append : ∀ a. (List<a> -> List<a> -> List<a>)` takes two lists and returns a new list that joins them together:
+`List.append : List<a> -> List<a> -> List<a>` takes two lists and returns a new list that joins them together:
 ```lean
-#eval List.append [1, 2, 3] [4, 5, 6] -- Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Nil()))))))
+#eval List.append [1, 2, 3] [4, 5, 6] 
 ```
-Note that the name of the above function is `List.append`, including the `.`. Identifiers in Lait can include periods in the middle of them. 
-We use this as a simple form of _namespacing_: instead of having `append`, `length`, and so on --- which might apply to binary trees as well as lists --- we write them as `List.append`, and `List.length`. 
+Identifiers in Lait can [have periods in the middle of them](./arithmetic.md). We use 
+this as a simple form of _namespacing_: `List.append` is the name we give to an operation on lists (as opposed to an `append` operation on, say, strings). 
 
-`List.length : ∀ a. (List<a> -> Int)` takes a list and returns its length:
+`List.length : List<a> -> Int` takes a list and returns its length:
 ```lean
-#eval List.length [1, 2, 3] -- 3
+#eval List.length [1, 2, 3]
 ```
 
-`List.member : ∀ a. (List<a> -> a -> Bool)` takes a list and a value and returns `true` if the value is in the list, and `false` otherwise:
+`List.member : List<a> -> a -> Bool` takes a list and a value and returns `true` if the value is in the list, and `false` otherwise:
 ```lean
-#eval List.member [1, 2, 3] 2 -- true
-#eval List.member [1, 2, 3] 4 -- false
+#eval List.member [1, 2, 3] 2
+#eval List.member [1, 2, 3] 4 
 ```
 Note that `List.member` only works for lists of types that can be compared for equality (e.g., `Int`), and will throw an error if the list contains functions.
 
-`List.filter : ∀ a. (List<a> -> (a -> Bool) -> List<a>)` takes a list and a predicate and returns a new list that contains only the elements of the original list that satisfy the predicate:
+`List.filter : List<a> -> (a -> Bool) -> List<a>` takes a list and a predicate and returns a new list that contains only the elements of the original list that satisfy the predicate:
 ```lean
-#eval List.filter [1, 2, 3] (fun x => x >= 2) -- Cons(2, Cons(3, Nil()))
+#eval List.filter [1, 2, 3] (fun x => x >= 2) 
 ```
 
-`List.find : ∀ a. (List<a> -> (a -> Bool) -> Option<a>)` takes a list and a predicate and returns the first element of the list that satisfies the predicate, or `None` if no element satisfies the predicate:
+`List.find : List<a> -> (a -> Bool) -> Option<a>` takes a list and a predicate and returns the first element of the list that satisfies the predicate, or `None` if no element satisfies the predicate:
 ```lean
-#eval List.find [1, 2, 3] (fun x => x >= 2) -- Some(2)
-#eval List.find [1, 2, 3] (fun x => x > 3) -- None
+#eval List.find [1, 2, 3] (fun x => x >= 2) 
+#eval List.find [1, 2, 3] (fun x => x > 3)
 ```
 (Option types are discussed below.)
 
 
 ## Options
 
-Lists are one example of an _algebraic data type_, which is a data type that is built up using _constructors_ (for lists, `Nil` and `Cons`), and 
-examined using pattern matching.
-Another common one built in to Lait are _option_ types. 
-Given a type `t`, a value of type `Option<t>` is either `None` or `Some(x)`, where `x` is a value of type `t`.
+Lists are one example of user-defined _data type_, which is built up out of _constructors_ (e.g., `Nil` and `Cons` for lists).
+Another common example built into Lait are _option_ types. 
+Given a type `t`, a value of type `Option<t>` is either `None` or `Some x`, where `x` is a value of type `t`.
 Hence, an option type is used when a value may or may not be present.
 
 ```lean
-#check None -- ∀ a. Option<a>
-#check Some 1 -- Option<Int>
+#check None  
+#check Some 1
 ```
 
 To use an option type, we pattern match on it, similar to lists. Below is a worked example:

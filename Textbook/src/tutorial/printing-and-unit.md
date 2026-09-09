@@ -17,14 +17,14 @@ When we sequence computations together using `let`, the side effects happen in o
 ```lean
 #eval let _ := print "hello" in print "world"
 ```
-
+If you click on "hello" in the above code snippet, you can see the rest of what is printed out. 
 (We use underscores in `let` to indicate that we don't care about the value of the expression, since we know it will return `()`.)
-(TODO: double check how the hover should appear.)
 
 Note that `def`s that contain side effects (such as `print`) are evaluated as soon as they are defined:
 ```lean
 def myPrint := print "hello"
 ```
+(In the textbook, you can see the print effects by hovering over the `...` to the right of the definition.)
 
 If we want to delay `myPrint` to only happen when we want it to, we want to make it a function. For this purpose, we can pass it a value of type `Unit`:
 ```lean

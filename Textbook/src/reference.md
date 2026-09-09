@@ -1,3 +1,0 @@
-# Lait Standard Library 
-
-TODO

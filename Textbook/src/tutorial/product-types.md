@@ -9,11 +9,11 @@ We can put types together to form _product types_, with syntax `S * T`, where `S
 
 We create values of product types using tuples:
 ```lean
-#eval (3, "hello") -- (3, "hello")
+#eval (3, "hello") 
 ```
 
 Given a product type, we can project out the first or second component as follows:
 ```lean
-#eval fst (2, 3) -- 2
-#eval snd (2, 3) -- 3
+#eval fst (2, 3)
+#eval snd (2, 3) 
 ```

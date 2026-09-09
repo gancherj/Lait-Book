@@ -16,6 +16,15 @@ def foo_plus_one : Int := foo + 1
 
 Inside expressions, we use `let .. := .. in ..`, which similarly can have optional type annotations.
 ```lean
-#eval  let x : Int := 3 in  let y := x * 2 in y * 3
+#eval  let x : Int := 3 in let y := x * 2 in y * 3
 #eval let res := (let b : Bool := false in if b then 1 else 2) in res * 2
 ```
+
+## Identifiers
+
+Inherent in every language is what counts as a valid _identifier_; that is, what kinds of things can be defined by `def` or `let`. 
+Identifiers in Lait are inherited from Lean. 
+In Lait, every identifier:
+
+- Must begin with a letter or an underscore; 
+- and can contain letters, numbers, or the symbols `.`, `?`, `'`, and `_` (among others).

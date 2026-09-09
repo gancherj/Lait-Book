@@ -15,11 +15,19 @@ We can also write type annotations for the argument through the syntax `fun (x :
 We can call a function in Lait by putting the function and argument side by side.
 
 ```lean
+-- Creating anonymous functions:
 #check fun x => x + 1 
 #eval fun x => x + 1 
+#check fun (x : Bool) => not x
+
+-- Calling an anonymous function:
 #eval (fun x => x + 1) 42
 
+-- Assigning an anonymous function to a def:
 def myFunc : Int -> Int := fun x => x + 1
+
+-- Calling it:
+#eval myFunc 20
 ```
 
 ## Named Functions
@@ -29,6 +37,9 @@ Another way to define functions in Lait is by using _named functions_, which we 
 ```lean
 def myFunc' x := x + 1
 def myFunc'' (x : Int) := x + 1
+
+#eval myFunc' 12
+#eval myFunc'' 12
 ```
 
 ### Multi-Argument Functions
@@ -37,10 +48,16 @@ In contrast to anonymous functions, named functions can take in multiple argumen
 ```lean
 def addThese (x : Int) y (z : Int) : Int := x + y + z
 
+-- The function itself has a nested function type.
+-- We can think of this as either a function of three arguments, 
+-- or equivalently a function that returns a function, which itself
+-- returns another function. 
 #check addThese
+
+-- We can partially apply functions of multiple arguments.
 #check addThese 1
 #check addThese 1 2
-#check addThese 1 2 3
+#eval addThese 1 2 3
 ```
 
 As seen above, multi-argument functions have a nested function type; for example, `addThese` will have type `Int -> (Int -> (Int -> Int))`. 
