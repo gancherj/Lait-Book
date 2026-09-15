@@ -128,3 +128,41 @@ def List.isFirstPositive (xs : List<Int>) : Bool :=
 ```
 First, we create a function `List.getFirst` that gets the first element of a list, or `None` if the list is empty.
 Then, we create a function `List.isFirstPositive` that uses `List.getFirst` to get the first element if it exists; if it does, we return whether it is greater than zero.
+
+## Pattern Matching: No Nesting
+
+Lait does not support _nested pattern matching_, where we match on multiple
+constructors at once. Thus, the following does not work:
+
+```
+def getSecondOrZero (xs : List<Int>) : Int :=
+match xs with
+ | Cons x (Cons y ys) => y
+ | Cons x Nil => 0
+ | Nil => 0
+end
+```
+
+When we pattern match on a constructor (be it `Cons` or a [user-defined
+one](./user-defined-types.md)), we can only pattern match "one layer deep".
+Hence, the two arguments to `Cons` in a pattern match must both be _variables_;
+not constructors themselves (such as `Cons` or `Nil`). 
+So the above needs to instead be written:
+
+```lean
+def getSecondOrZero (xs : List<Int>) : Int :=
+  match xs with
+  | Cons x xs' => 
+    match xs' with
+    | Cons y zs => y
+    | Nil => 0
+    end
+  | Nil => 0
+  end
+```
+
+ 
+
+
+
+

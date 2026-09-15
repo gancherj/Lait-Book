@@ -1,5 +1,10 @@
 # Lait Standard Library 
 
+```lean
+import Lait
+#lait
+```
+
 This file documents the functions and types that are included with Lait. 
 See the [tutorial](./tutorial.md) for documentation about the basic types of Lait, including `Int`, `Bool`, `String`, function types, `Unit`, and product types. 
 
@@ -46,6 +51,21 @@ You can use the following operations on maps:
 - `Map.insert : Map<k,v> -> k -> v -> Map<k,v>`. Add the given key-value pair to the map.
 - `Map.lookup : Map<k,v> -> k -> Option<v>`. 
 
+Below are some examples:
+
+```lean
+def myTest : Option<Int> := 
+  let m1 : Map<Int, Int> := Map.empty in 
+  let m2 : Map<Int, Int> := Map.insert m1 1 42 in 
+  let m3 : Map<Int, Int> := Map.insert m2 2 43 in 
+  let m4 : Map<Int, Int> := Map.delete m3 1 in 
+  let res : Option<Int> := Map.lookup m4 2 in 
+  res
+
+#test myTest === Some 43
+```
+  
+
 ### Mutable References
 
 We have the following functions available for mutable references:
@@ -58,5 +78,3 @@ We have the following functions available for mutable references:
 
 - `toString : a -> String`. Render the value as a string.
 - `print : String -> Unit`. Print the string as output.
-
-
