@@ -66,6 +66,11 @@ def myTest : Option<Int> :=
 ```
   
 
+> [!NOTE]
+> If the above code snippet isn't working for you, you likely need to 
+> [update lait](./tutorial/getting-started.md). Old versions of Lait 
+> had a different type for `Map.insert`.
+
 ### Mutable References
 
 We have the following functions available for mutable references:
