@@ -39,3 +39,20 @@ def fill_this_in () : Int := ...
 #eval fill_this_in ()
 ```
 
+## Testing for errors
+
+In Lait, you can write tests for the presence of an error. If you have an expression `e` that should error, you can write `#test_error e` ensure that `e` will error.
+```lean
+def only_return_nonneg (i : Int) : Int :=
+  if i < 0 then error "Bad input!" else i
+
+#test only_return_nonneg 32 === 32
+#test_error only_return_nonneg (- 5)
+#test_error only_return_nonneg 32
+```
+
+Additionally, `#test_error` has a form where you can also assert the exact error you expect:
+```lean
+#test_error only_return_nonneg (-5) ~ "Bad input!"
+#test_error only_return_nonneg (-5) ~ "some other error"
+```
