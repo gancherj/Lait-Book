@@ -14,5 +14,6 @@
   - [Type Aliases](./tutorial/type-aliases.md)
   - [Printing and the Unit type](./tutorial/printing-and-unit.md)
   - [Mutable References](./tutorial/mutable-references.md)
+  - [Mutual Recursion](./tutorial/mutual-recursion.md)
   - [Errors](./tutorial/errors.md)
 - [Lait Standard Library](./stdlib.md)
