@@ -61,7 +61,7 @@ In addition, when making a particular list, we can use the syntax `[e1, e2, ...,
 ```lean
 #eval [1, 2, 3] 
 ```
-Here, `[1, 2, 3]` is exactly equivalent to `1 :: 2 :: 3 :: []`, which is in turn exactly equivalent to `Cons(1, Cons(2, Cons(3, Nil)))`.
+Here, `[1, 2, 3]` is exactly equivalent to `1 :: 2 :: 3 :: []`, which is in turn exactly equivalent to `Cons 1 (Cons 2 (Cons 3 Nil))`.
 
 ### Common List Operations
 
